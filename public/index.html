@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/e80947895c.js" crossorigin="anonymous"></script>
+    <title>Rotating Table APP</title>
+</head>
+<body>
+    <div class="container px-5 mb-5">
+        <h1 class="text-center my-4">Rotating Table APP</h1>
+
+        <div class="row">
+            <div class="col-8">
+                <div class="card mb-3">
+                    <h4 class="card-header"><i class="far fa-lightbulb"></i>&nbsp;&nbsp;Stepper</h4>
+                    <div class="card-body">
+                        <h5 class="card-title">RPM Speed</h5>
+                        <input type="text" class="form-control form-control-lg" id="speedRpm" name="speedRpm" value="0.1" />
+                        <button id="speedSet" class="btn btn-primary btn mt-3">Set Speed</button>
+                    </div>
+                    <div class="card-body">
+                        <h5>Direction</h5>
+                        <button id="cw" type="button" class="btn btn-outline-primary btn col-4"><i class="fas fa-redo"></i></button>
+                        <button id="ccw" type="button" class="btn btn-outline-primary btn col-4"><i class="fas fa-undo"></i></button>
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <h4 class="card-header"><i class="far fa-lightbulb"></i>&nbsp;&nbsp;LED</h4>
+                    <div class="card-body">
+                    <h5 class="card-title">Pulse Delay (ms)</h5>
+                    <input type="text" class="form-control form-control-lg" id="ledDelay" name="ledDelay" value="1000" />
+                    <button id="ledSet" class="btn btn-warning btn mt-3">Set Delay</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card text-white bg-dark mb-3">
+                    <h4 class="card-header text-success">Monitor</h4>
+                    <div class="card-body">
+                      <p class="card-text" id="monitor" style="color: #45FF00;"></p>
+                    </div>
+                  </div>
+            </div>
+        </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <!-- important!! include socket.io client side script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script>
+        //load socket.io-client and connect to the host that serves the page
+        var socket = io();
+
+        $('#ledSet').on('click', () => {
+            // parseInt() function parses a string and returns an integer, the radix is 10 (decimal)
+            var tmp = parseInt($('#ledDelay').val(), 10);
+            console.log('Setting LED Delay: ', tmp);
+            $("#monitor").text('Setting LED Delay: ' + tmp + ' ms');
+            socket.emit('led', {delay: tmp});
+        });
+
+        $('#speedSet').on('click', () => {
+            var tmp = parseFloat($('#speedRpm').val(), 10);
+            console.log('Stepper Speed: ' + tmp + 'RPM');
+            $("#monitor").text('Stepper Speed: ' + tmp + ' RPM');
+            socket.emit('stepper-speed', {rpm: tmp});
+        });
+
+        $('#cw').on('click', () => {
+            console.log('Direction: CW');
+            $("#monitor").text('Direction: CW');
+            socket.emit('stepper-cw', {direction: 0});
+        });
+
+        $('#ccw').on('click', () => {
+            console.log('Direction: CCW');
+            $("#monitor").text('Direction: CCW');
+            socket.emit('stepper-ccw', {direction: 1});
+        });
+    </script>
+</body>
+</html>

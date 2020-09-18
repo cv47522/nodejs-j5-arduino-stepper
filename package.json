@@ -1,0 +1,23 @@
+{
+  "name": "nodejs-electron-arduino-stepper",
+  "version": "1.0.0",
+  "description": "Rotating Arduino table",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "author": "Wan-Ting Hsieh",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^10.1.2",
+    "electron-rebuild": "^2.0.3"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "johnny-five": "^2.0.0",
+    "serve-favicon": "^2.5.0",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0"
+  }
+}
