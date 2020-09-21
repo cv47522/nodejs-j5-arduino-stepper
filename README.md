@@ -26,3 +26,25 @@
 ## Control Panel
 
 ![panel](./public/img/panel.png)
+
+## Video
+
+[![video](./public/img/cover.jpg)](https://youtu.be/y3VsqAG2W88)
+
+## Hardware
+
+- Arduino Uno
+
+- a Stepper Motor (Bipolar, or 4-wire)
+
+- a Stepper Motor Driver (e.g. [TMC2208 Silent Step Stick](https://www.digikey.fi/product-detail/en/trinamic-motion-control-gmbh/TMC2208-SILENTSTEPSTICK/1460-1201-ND/6873626), [A4988](https://www.pololu.com/product/1182))
+
+- 8V-35V Power Adapter
+
+- a Barrel Power Jack
+
+## Pin Connection (e.g. A4988)
+
+![pololu](./public/img/Arduino_Stepper_Driver_TMC2208_pololu.jpg)
+
+![fritzing](./public/img/Arduino_Stepper_Driver_TMC2208_fritzing.png)
