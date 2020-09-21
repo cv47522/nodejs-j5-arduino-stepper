@@ -1,5 +1,5 @@
 const {Board, Led, Stepper} = require('johnny-five');
-var led, board, stepper;
+var led, board, stepper, speed = 180;
 
 board = new Board();
 
@@ -59,13 +59,15 @@ io.on('connection', (socket) => {
         // if (board.isReady) {
         //     stepper.speed(data.rpm);
         // }
+
+        speed = data.rpm
     });
 
     socket.on('stepper-ccw', (data) => {
         console.log(data);
         if (board.isReady) {
             // Set stepper to 180 RPM, counter-clockwise with acceleration and deceleration
-            stepper.rpm(180).ccw().accel(1600).decel(1600);
+            stepper.rpm(speed).ccw().accel(1600).decel(1600);
 
             // Make 10 full revolutions
             stepper.step(2000, () => {
@@ -78,7 +80,7 @@ io.on('connection', (socket) => {
         console.log(data);
         if (board.isReady) {
             // Set stepper to 180 RPM, counter-clockwise with acceleration and deceleration
-            stepper.rpm(180).cw().accel(1600).decel(1600);
+            stepper.rpm(speed).cw().accel(1600).decel(1600);
 
             // Make 10 full revolutions
             stepper.step(2000, () => {
