@@ -7,12 +7,20 @@ board.on('ready', () => {
     // init a led on pin 13, blink every 1000ms
     led = new Led(13).blink(1000);
 
+    // for diabling the EN pin on the DIY stepper shield
+    // board.pinMode(8, board.MODES.OUTPUT);
+    // board.digitalWrite(8, 0);
+
     stepper = new Stepper({
         type: Stepper.TYPE.DRIVER,
         stepsPerRev: 200,
         pins: {
           step: 12,
           dir: 11
+
+        // for using the DIY stepper shield
+        //   step: 6,
+        //   dir: 7
         }
       });
 
